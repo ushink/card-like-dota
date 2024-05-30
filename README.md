@@ -2,6 +2,8 @@
 
 Для задачи можно выбрать любое публичное api, например, отсюда https://github.com/public-apis/public-apis
 
+## Выбранное API https://api.opendota.com/api/heroes
+
 Каким должно быть приложение?
 
 - Пришедшие данные хранятся в сторе.
