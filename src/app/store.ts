@@ -5,7 +5,7 @@ import dotaSlice from "./dotaSlice";
 export const store = configureStore({
   reducer: {
     dota: dotaSlice,
-    [dotaApi.reducerPath]: dotaApi.reducer,
+    [dotaApi.reducerPath]: dotaApi.reducer, // TODO: оставить или убрать?
   },
 
   middleware: (getDefaultMiddleware) =>

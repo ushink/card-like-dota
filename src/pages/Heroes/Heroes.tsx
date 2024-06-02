@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectHeroes, setHeroes } from "../../app/dotaSlice";
 
 export function Heroes() {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch(); // TODO: или тут нужно использовать useAppDispatch из hooks
 
   const { data } = useGetHeroesStatsQuery();
 
