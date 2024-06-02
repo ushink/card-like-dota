@@ -1,8 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { dotaApi } from "../services/heroes";
+import dotaSlice from "./dotaSlice";
 
 export const store = configureStore({
   reducer: {
+    dota: dotaSlice,
     [dotaApi.reducerPath]: dotaApi.reducer,
   },
 
