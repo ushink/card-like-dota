@@ -4,6 +4,8 @@ import s from "./Heroes.module.css";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { selectHeroes, setHeroes } from "../../app/dotaSlice";
+import { HeartOutlined, HeartTwoTone } from "@ant-design/icons";
+import { HeroStats } from "../../models/models";
 
 export function Heroes() {
   const dispatch = useDispatch(); // TODO: или тут нужно использовать useAppDispatch из hooks
@@ -12,11 +14,20 @@ export function Heroes() {
 
   const heroes = useSelector(selectHeroes);
 
-  console.log(heroes);
-
   useEffect(() => {
-    dispatch(setHeroes(data));
+    if (data) {
+      const updatedHeroes = data.map((hero) => ({ ...hero, isLike: null }));
+      dispatch(setHeroes(updatedHeroes));
+    }
   }, [data]);
+
+  const handleLike = (select: HeroStats) => {
+    const likesHeroes = heroes.map((el) =>
+      el.id === select.id ? { ...el, isLike: !el.isLike } : el
+    );
+
+    dispatch(setHeroes(likesHeroes)); //TODO: спросить про использование повторного dispatch
+  };
 
   return (
     <main className={s.wrapper}>
@@ -43,6 +54,17 @@ export function Heroes() {
                 →
               </Link>
             </div>
+          </div>
+          <div
+            onClick={() => {
+              handleLike(el);
+            }}
+          >
+            {el.isLike ? (
+              <HeartTwoTone twoToneColor="red" className={s.heart} />
+            ) : (
+              <HeartOutlined className={s.heart} />
+            )}
           </div>
         </div>
       ))}
