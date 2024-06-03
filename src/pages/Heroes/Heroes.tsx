@@ -19,21 +19,33 @@ export function Heroes() {
   }, [data]);
 
   return (
-    <div>
-      <h1 className={s.title}>Heroes</h1>
-
+    <main className={s.wrapper}>
       {heroes?.map((el) => (
-        <div key={el.id}>
-          <Link to={`/hero/${el.id}`}>
-            <h1>{el.localized_name}</h1>
-          </Link>
-
+        <div className={s.card} key={el.id}>
           <img
+            className={s.background}
             src={`https://cdn.cloudflare.steamstatic.com/${el.img}`}
             alt={el.name}
           />
+          <div className={s.hero}>
+            <img
+              className={s.img}
+              src={`https://cdn.cloudflare.steamstatic.com/${el.img}`}
+              alt={el.name}
+            />
+            <div className={s.info}>
+              <h2 className={s.name}>{el.localized_name}</h2>
+              <p className={s.attack}>
+                {el.attack_type} -{" "}
+                <span className={s.role}>{el.roles.join(", ")}</span>
+              </p>
+              <Link to={`/hero/${el.id}`} className={s.link}>
+                →
+              </Link>
+            </div>
+          </div>
         </div>
       ))}
-    </div>
+    </main>
   );
 }
