@@ -1,0 +1,35 @@
+.skills {
+  color: rgba(255, 255, 255, 0.87);
+  display: flex;
+  gap: 30px;
+  justify-content: center;
+  padding-top: 30px;
+}
+
+.skill {
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.str {
+  background: rgb(244, 67, 54);
+}
+
+.agi {
+  background: rgb(57, 212, 2);
+}
+
+.int {
+  background: rgb(1, 169, 244);
+}
+
+.circle {
+  border-radius: 50%;
+  flex-shrink: 0;
+  height: 8px;
+  margin-right: 8px;
+  width: 8px;
+}

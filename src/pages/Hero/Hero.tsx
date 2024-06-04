@@ -1,6 +1,8 @@
 import s from "./Hero.module.css";
 import { useSelector } from "react-redux";
 import { selectHero } from "../../app/dotaSlice";
+import { HeroSkills } from "../../components/HeroSkills/HeroSkills";
+import { HeroStats } from "../../models/models";
 
 export function Hero() {
   const hero = useSelector(selectHero);
@@ -29,26 +31,7 @@ export function Hero() {
               {hero?.attack_type} -{" "}
               <span className={s.role}>{hero?.roles.join(", ")}</span>
             </p>
-            <div className={s.skills}>
-              <div className={s.skill}>
-                <div className={`${s.circle} + ${s.str}`}></div>
-                <div>
-                  {hero?.base_str} + {hero?.str_gain}
-                </div>
-              </div>
-              <div className={s.skill}>
-                <div className={`${s.circle} + ${s.agi}`}></div>
-                <div>
-                  {hero?.base_agi} + {hero?.agi_gain}
-                </div>
-              </div>
-              <div className={s.skill}>
-                <div className={`${s.circle} + ${s.int}`}></div>
-                <div>
-                  {hero?.base_int} + {hero?.int_gain}
-                </div>
-              </div>
-            </div>
+            <HeroSkills hero={hero as HeroStats} />
           </div>
         </div>
         <table>
@@ -96,7 +79,9 @@ export function Hero() {
           </thead>
         </table>
       </div>
-      <button className={s.btnBack} onClick={handleClickBack}>Back</button>
+      <button className={s.btnBack} onClick={handleClickBack}>
+        Back
+      </button>
     </main>
   );
 }
