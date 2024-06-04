@@ -2,12 +2,22 @@ import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { dotaApi } from "../services/heroes";
 import dotaReducer from "./dotaSlice";
 import storage from "redux-persist/lib/storage";
-import { persistReducer, persistStore } from "redux-persist";
+import {
+  FLUSH,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER,
+  REHYDRATE,
+  persistReducer,
+  persistStore,
+} from "redux-persist";
 
 const persistConfig = {
   key: "root",
   version: 1,
   storage,
+  blacklist: [dotaApi.reducerPath],
 };
 
 const rootReducer = combineReducers({
@@ -19,18 +29,12 @@ const persistedReducer = persistReducer(persistConfig, rootReducer); //TODO: н�
 
 export const store = configureStore({
   reducer: persistedReducer,
-
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {
-        // Игнорировать эти типы действий
-        ignoredActions: ["persist/PERSIST"],
-        // Игнорировать эти пути полей во всех действиях
-        ignoredActionPaths: ["meta.arg", "payload.timestamp"],
-        // Игнорировать эти пути в состоянии
-        ignoredPaths: ["items.dates"],
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }).concat(dotaApi.middleware),
+    }).concat( dotaApi.middleware),
 });
 
 export const persistor = persistStore(store);

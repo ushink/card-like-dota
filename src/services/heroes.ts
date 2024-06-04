@@ -13,4 +13,4 @@ export const dotaApi = createApi({
   }),
 });
 
-export const { useGetHeroesStatsQuery } = dotaApi;
+export const { useLazyGetHeroesStatsQuery } = dotaApi;

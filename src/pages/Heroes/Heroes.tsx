@@ -1,32 +1,39 @@
 import { Link } from "react-router-dom";
-import { useGetHeroesStatsQuery } from "../../services/heroes";
+import { useLazyGetHeroesStatsQuery } from "../../services/heroes";
 import s from "./Heroes.module.css";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { selectHeroes, setHeroes } from "../../app/dotaSlice";
+import { selectHeroes, setHero, setHeroes } from "../../app/dotaSlice";
 import { HeartOutlined, HeartTwoTone } from "@ant-design/icons";
 import { HeroStats } from "../../models/models";
 
 export function Heroes() {
   const dispatch = useDispatch(); // TODO: или тут нужно использовать useAppDispatch из hooks
 
-  const { data } = useGetHeroesStatsQuery();
+  const { data }: any = useLazyGetHeroesStatsQuery(); // TODO: почему требует any?
 
   const heroes = useSelector(selectHeroes);
 
   useEffect(() => {
     if (data) {
-      const updatedHeroes = data.map((hero) => ({ ...hero, isLike: null }));
+      const updatedHeroes = data.map((hero: any) => ({
+        ...hero,
+        isLike: false,
+      }));
       dispatch(setHeroes(updatedHeroes));
     }
-  }, [data]);
+  }, []);
 
   const handleLike = (select: HeroStats) => {
     const likesHeroes = heroes.map((el) =>
       el.id === select.id ? { ...el, isLike: !el.isLike } : el
     );
 
-    dispatch(setHeroes(likesHeroes)); //TODO: спросить про использование повторного dispatch
+    dispatch(setHeroes(likesHeroes)); //TODO: спросить про использование повторного dispatch. Нарушаю ли иммутабельность
+  };
+
+  const handleHero = (hero: HeroStats) => {
+    dispatch(setHero(hero));
   };
 
   return (
@@ -50,7 +57,11 @@ export function Heroes() {
                 {el.attack_type} -{" "}
                 <span className={s.role}>{el.roles.join(", ")}</span>
               </p>
-              <Link to={`/hero/${el.id}`} className={s.link}>
+              <Link
+                to={`/hero/${el.id}`}
+                className={s.link}
+                onClick={() => handleHero(el)}
+              >
                 →
               </Link>
             </div>
