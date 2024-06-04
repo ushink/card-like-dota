@@ -1,3 +1,76 @@
-.title {
-  background-color: aqua;
+.wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 80px;
+}
+
+.card {
+  display: flex;
+  background: rgba(0, 0, 0, 0.9);
+  overflow: hidden;
+  position: relative;
+  border-radius: 10px;
+  max-width: 1200px;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.background {
+  background-repeat: no-repeat;
+  filter: blur(25px);
+  height: 125%;
+  left: -12.5%;
+  object-fit: cover;
+  opacity: 0.35;
+  position: absolute;
+  top: -12.5%;
+  width: 125%;
+}
+
+.hero {
+  -webkit-box-align: center;
+  align-items: center;
+  display: flex;
+  position: relative;
+  padding: 80px;
+}
+
+.img {
+  border-radius: 16px;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 12px 32px;
+  display: block;
+  flex-shrink: 0;
+  height: 200px;
+  object-fit: cover;
+  width: 300px;
+}
+
+.info {
+  flex: 1 1 100%;
+  margin: 0px 24px;
+}
+
+.name {
+  font-size: 40px;
+  font-weight: 500;
+  line-height: 40px;
+  color: rgba(255, 255, 255, 0.87);
+}
+
+.attack {
+  color: rgba(255, 255, 255, 0.87);
+  font-size: 18px;
+  letter-spacing: 1px;
+  margin: 8px 0px;
+  text-transform: uppercase;
+}
+
+.role {
+  color: rgba(255, 255, 255, 0.6);
+  overflow-wrap: break-word;
 }

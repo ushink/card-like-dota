@@ -1,3 +1,103 @@
-.title {
-  color: red;
+.wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+}
+
+.card {
+  display: flex;
+  background: rgba(0, 0, 0, 0.9);
+  overflow: hidden;
+  position: relative;
+  border-radius: 8px;
+  max-width: 500px;
+  height: 250px;
+  transition: 0.5s;
+}
+
+.card:hover {
+  transform: scale(1.05);
+}
+
+.background {
+  background-repeat: no-repeat;
+  filter: blur(25px);
+  height: 125%;
+  left: -12.5%;
+  object-fit: cover;
+  opacity: 0.35;
+  position: absolute;
+  top: -12.5%;
+  width: 125%;
+}
+
+.hero {
+  -webkit-box-align: center;
+  align-items: center;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 0px 125px inset;
+  display: flex;
+  padding: 0 50px 0 50px;
+  position: relative;
+}
+
+.img {
+  border-radius: 16px;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 12px 32px;
+  display: block;
+  flex-shrink: 0;
+  height: 128px;
+  object-fit: cover;
+  width: 180px;
+}
+
+.info {
+  flex: 1 1 100%;
+  margin: 0px 24px;
+}
+
+.name,
+.link {
+  font-size: 32px;
+  font-weight: 500;
+  line-height: 40px;
+  color: rgba(255, 255, 255, 0.87);
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+.link:hover {
+  text-shadow: rgb(255, 255, 255) 1px 0 10px;
+}
+
+.link:active {
+  color: rgba(138, 138, 138, 0.8);
+}
+
+.attack {
+  color: rgba(255, 255, 255, 0.87);
+  font-size: 12px;
+  letter-spacing: 1px;
+  margin: 8px 0px;
+  text-transform: uppercase;
+}
+
+.role {
+  color: rgba(255, 255, 255, 0.6);
+  overflow-wrap: break-word;
+}
+
+.heart {
+  position: absolute;
+  font-size: 28px;
+  right: 30px;
+  bottom: 30px;
+  color: rgba(255, 255, 255, 0.87);
+  cursor: pointer;
+}
+
+.heart:hover {
+  color: rgba(228, 16, 118, 0.9);
 }
