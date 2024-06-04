@@ -14,6 +14,11 @@
   border-radius: 8px;
   max-width: 500px;
   height: 250px;
+  transition: 0.5s;
+}
+
+.card:hover {
+  transform: scale(1.05);
 }
 
 .background {
@@ -60,6 +65,7 @@
   line-height: 40px;
   color: rgba(255, 255, 255, 0.87);
   transition: 0.3s;
+  cursor: pointer;
 }
 
 .link:hover {
@@ -89,6 +95,7 @@
   right: 30px;
   bottom: 30px;
   color: rgba(255, 255, 255, 0.87);
+  cursor: pointer;
 }
 
 .heart:hover {

@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useLazyGetHeroesStatsQuery } from "../../services/heroes";
 import s from "./Heroes.module.css";
 import { useEffect } from "react";
@@ -9,6 +9,7 @@ import { HeroStats } from "../../models/models";
 
 export function Heroes() {
   const dispatch = useDispatch(); // TODO: или тут нужно использовать useAppDispatch из hooks
+  const navigate = useNavigate();
 
   const { data }: any = useLazyGetHeroesStatsQuery(); // TODO: почему требует any?
 
@@ -32,14 +33,15 @@ export function Heroes() {
     dispatch(setHeroes(likesHeroes)); //TODO: спросить про использование повторного dispatch. Нарушаю ли иммутабельность
   };
 
-  const handleHero = (hero: HeroStats) => {
+  const handleClick = (hero: HeroStats) => {
+    navigate(`/hero/${hero.id}`);
     dispatch(setHero(hero));
   };
 
   return (
     <main className={s.wrapper}>
       {heroes?.map((el) => (
-        <div className={s.card} key={el.id}>
+        <div className={s.card} key={el.id} onClick={() => handleClick(el)}>
           <img
             className={s.background}
             src={`https://cdn.cloudflare.steamstatic.com/${el.img}`}
@@ -57,17 +59,12 @@ export function Heroes() {
                 {el.attack_type} -{" "}
                 <span className={s.role}>{el.roles.join(", ")}</span>
               </p>
-              <Link
-                to={`/hero/${el.id}`}
-                className={s.link}
-                onClick={() => handleHero(el)}
-              >
-                →
-              </Link>
+              <span className={s.link}>→</span>
             </div>
           </div>
           <div
-            onClick={() => {
+            onClick={(event) => {
+              event.stopPropagation();
               handleLike(el);
             }}
           >
