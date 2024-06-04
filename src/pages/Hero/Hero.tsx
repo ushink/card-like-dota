@@ -4,13 +4,10 @@ import { selectHero } from "../../app/dotaSlice";
 import { HeroStats } from "../../models/models";
 import { HeroSkills } from "../../components/HeroSkills/HeroSkills";
 import { HeroDetails } from "../../components/HeroDetails/HeroDetails";
+import { BtnBack } from "../../components/BtnBack/BtnBack";
 
 export function Hero() {
   const hero = useSelector(selectHero);
-
-  const handleClickBack = () => {
-    window.history.back();
-  };
 
   return (
     <main className={s.wrapper}>
@@ -37,9 +34,7 @@ export function Hero() {
         </div>
         <HeroDetails hero={hero as HeroStats} />
       </div>
-      <button className={s.btnBack} onClick={handleClickBack}>
-        Back
-      </button>
+      <BtnBack />
     </main>
   );
 }
