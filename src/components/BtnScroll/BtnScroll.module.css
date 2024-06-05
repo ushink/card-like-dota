@@ -1,0 +1,17 @@
+.scroll {
+  position: fixed;
+  z-index: 10;
+  font-size: 30px;
+  right: 120px;
+  bottom: 50px;
+  color: rgb(0, 0, 0);
+  cursor: pointer;
+}
+
+.scroll:hover {
+  color: rgba(91, 94, 255, 0.9);
+}
+
+.scroll:active {
+  color: rgb(170, 171, 248);
+}

@@ -16,6 +16,7 @@ import { HeroStats } from "../../models/models";
 import { BtnFilter } from "../../components/BtnFilter/BtnFilter";
 import { BtnLike } from "../../components/BtnLike/BtnLike";
 import { BtnDelete } from "../../components/BtnDelete/BtnDelete";
+import { BtnScroll } from "../../components/BtnScroll/BtnScroll";
 
 export function Heroes() {
   const dispatch = useDispatch(); // TODO: или тут нужно использовать useAppDispatch из hooks
@@ -60,6 +61,7 @@ export function Heroes() {
   return (
     <main className={s.wrapper}>
       <BtnFilter isFilter={isFilter} setIsFilter={setIsFilter} />
+      <BtnScroll />
       <section className={s.cards}>
         {currentHeroes?.map((el) => (
           <div className={s.card} key={el.id} onClick={() => handleClick(el)}>
