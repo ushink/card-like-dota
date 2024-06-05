@@ -12,9 +12,10 @@ import {
   setHeroes,
   setHeroesFav,
 } from "../../app/dotaSlice";
-import { HeartOutlined, HeartTwoTone } from "@ant-design/icons";
 import { HeroStats } from "../../models/models";
 import { BtnFilter } from "../../components/BtnFilter/BtnFilter";
+import { BtnLike } from "../../components/BtnLike/BtnLike";
+import { BtnDelete } from "../../components/BtnDelete/BtnDelete";
 
 export function Heroes() {
   const dispatch = useDispatch(); // TODO: или тут нужно использовать useAppDispatch из hooks
@@ -28,6 +29,7 @@ export function Heroes() {
   const heroesFav = useSelector(selectHeroesFav);
   const currentHeroes = useSelector(selectCurrentHeroes);
 
+  // Сохранить данные
   useEffect(() => {
     if (data) {
       const updatedHeroes = data.map((hero: any) => ({
@@ -38,24 +40,19 @@ export function Heroes() {
     }
   }, []);
 
-  const handleLike = (select: HeroStats) => {
-    const likesHeroes = heroes.map((el) =>
-      el.id === select.id ? { ...el, isLike: !el.isLike } : el
-    );
-
-    dispatch(setHeroes(likesHeroes)); //TODO: спросить про использование повторного dispatch. Нарушаю ли иммутабельность
-  };
-
+  // Перейти на страницу с персонажем
   const handleClick = (hero: HeroStats) => {
     navigate(`/hero/${hero.id}`);
     dispatch(setHero(hero));
   };
 
+  // Сохранить лайкнутых персонажей
   useEffect(() => {
     const favoritesHeroes = heroes.filter((item) => item.isLike === true);
     dispatch(setHeroesFav(favoritesHeroes));
   }, [heroes]);
 
+  // Отфильтровать
   useEffect(() => {
     dispatch(setCurrentHeroes(isFilter ? heroesFav : heroes));
   }, [isFilter, heroes, heroesFav]);
@@ -63,7 +60,6 @@ export function Heroes() {
   return (
     <main className={s.wrapper}>
       <BtnFilter isFilter={isFilter} setIsFilter={setIsFilter} />
-
       <section className={s.cards}>
         {currentHeroes?.map((el) => (
           <div className={s.card} key={el.id} onClick={() => handleClick(el)}>
@@ -72,6 +68,7 @@ export function Heroes() {
               src={`https://cdn.cloudflare.steamstatic.com/${el.img}`}
               alt={el.name}
             />
+            <BtnDelete id={el.id} />
             <div className={s.hero}>
               <img
                 className={s.img}
@@ -87,18 +84,7 @@ export function Heroes() {
                 <span className={s.link}>→</span>
               </div>
             </div>
-            <div
-              onClick={(event) => {
-                event.stopPropagation();
-                handleLike(el);
-              }}
-            >
-              {el.isLike ? (
-                <HeartTwoTone twoToneColor="red" className={s.heart} />
-              ) : (
-                <HeartOutlined className={s.heart} />
-              )}
-            </div>
+            <BtnLike hero={el} />
           </div>
         ))}
       </section>
