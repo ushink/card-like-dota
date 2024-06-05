@@ -1,5 +1,12 @@
 .wrapper {
   display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 50px;
+}
+
+.cards {
+  display: flex;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
@@ -87,17 +94,4 @@
 .role {
   color: rgba(255, 255, 255, 0.6);
   overflow-wrap: break-word;
-}
-
-.heart {
-  position: absolute;
-  font-size: 28px;
-  right: 30px;
-  bottom: 30px;
-  color: rgba(255, 255, 255, 0.87);
-  cursor: pointer;
-}
-
-.heart:hover {
-  color: rgba(228, 16, 118, 0.9);
 }
