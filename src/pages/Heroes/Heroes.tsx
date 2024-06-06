@@ -1,5 +1,8 @@
 import { useNavigate } from "react-router-dom";
-import { useLazyGetHeroesStatsQuery } from "../../services/heroes";
+import {
+  useGetHeroesStatsQuery,
+  useLazyGetHeroesStatsQuery,
+} from "../../services/heroes";
 import s from "./Heroes.module.css";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -17,6 +20,7 @@ import { BtnFilter } from "../../components/BtnFilter/BtnFilter";
 import { BtnLike } from "../../components/BtnLike/BtnLike";
 import { BtnDelete } from "../../components/BtnDelete/BtnDelete";
 import { BtnScroll } from "../../components/BtnScroll/BtnScroll";
+import { LoadingOutlined } from "@ant-design/icons";
 
 export function Heroes() {
   const dispatch = useDispatch(); // TODO: или тут нужно использовать useAppDispatch из hooks
@@ -24,7 +28,8 @@ export function Heroes() {
 
   const [isFilter, setIsFilter] = useState(false);
 
-  const { data }: any = useLazyGetHeroesStatsQuery(); // TODO: почему требует any?
+  const [{ data, isLoading, isError, error }]: any = useLazyGetHeroesStatsQuery(); // TODO: почему требует any?
+  // const { data, isLoading, isError, error } = useGetHeroesStatsQuery();
 
   const heroes = useSelector(selectHeroes);
   const heroesFav = useSelector(selectHeroesFav);
@@ -49,7 +54,7 @@ export function Heroes() {
 
   // Сохранить лайкнутых персонажей
   useEffect(() => {
-    const favoritesHeroes = heroes.filter((item) => item.isLike === true);
+    const favoritesHeroes = heroes?.filter((item) => item.isLike === true);
     dispatch(setHeroesFav(favoritesHeroes));
   }, [heroes]);
 
@@ -58,6 +63,19 @@ export function Heroes() {
     dispatch(setCurrentHeroes(isFilter ? heroesFav : heroes));
   }, [isFilter, heroes, heroesFav]);
 
+  // Отображаем индикатор загрузки, пока данные не будут получены
+  if (isLoading) {
+    return (
+      <div className={s.wrapper}>
+        <LoadingOutlined /> Загрузка...
+      </div>
+    );
+  }
+
+  // Обрабатываем возможные ошибки
+  if (isError) {
+    return <div className={s.wrapper}>Ошибка: {JSON.stringify(error)}</div>;
+  }
   return (
     <main className={s.wrapper}>
       <BtnFilter isFilter={isFilter} setIsFilter={setIsFilter} />
