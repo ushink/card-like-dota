@@ -8,12 +8,14 @@ const dotaSlice = createSlice({
     heroesFav: [],
     currentHeroes: [],
     hero: null,
+    hasRunOnce: false,
   },
   selectors: {
     selectHeroes: (state): HeroStats[] => state.heroes, // TODO: правильная ли тут типизиция
     selectHeroesFav: (state): HeroStats[] => state.heroesFav,
     selectHero: (state): HeroStats | null => state.hero,
     selectCurrentHeroes: (state): HeroStats[] => state.currentHeroes,
+    selectHasRunOnce: (state): boolean => state.hasRunOnce,
   },
   reducers: {
     setHeroes: (state, action) => {
@@ -31,17 +33,27 @@ const dotaSlice = createSlice({
     setCurrentHeroes(state, action) {
       state.currentHeroes = action.payload;
     },
+
+    setHasRunOnce(state, action) {
+      state.hasRunOnce = action.payload;
+    },
   },
 });
 
-export const { setHeroes, setHeroesFav, setHero, setCurrentHeroes } =
-  dotaSlice.actions;
+export const {
+  setHeroes,
+  setHeroesFav,
+  setHero,
+  setCurrentHeroes,
+  setHasRunOnce,
+} = dotaSlice.actions;
 
 export const {
   selectHeroes,
   selectHeroesFav,
   selectHero,
   selectCurrentHeroes,
+  selectHasRunOnce,
 } = dotaSlice.selectors;
 
 export default dotaSlice.reducer;
