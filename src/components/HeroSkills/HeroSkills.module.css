@@ -33,3 +33,21 @@
   margin-right: 8px;
   width: 8px;
 }
+
+@media (max-width: 662px) {
+  .skills {
+    gap: 12px;
+    padding-top: 8px;
+  }
+
+  .skill {
+    font-size: 10px;
+    line-height: 18px;
+  }
+
+  .circle {
+    height: 5px;
+    margin-right: 3px;
+    width: 5px;
+  }
+}
