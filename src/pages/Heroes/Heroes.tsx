@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   selectCurrentHeroes,
+  selectHasRunOnce,
   selectHeroes,
   selectHeroesFav,
   setCurrentHeroes,
@@ -19,7 +20,6 @@ import { BtnLike } from "../../components/BtnLike/BtnLike";
 import { BtnDelete } from "../../components/BtnDelete/BtnDelete";
 import { BtnScroll } from "../../components/BtnScroll/BtnScroll";
 import { LoadingOutlined } from "@ant-design/icons";
-import { useHasRunOnce } from "../../context/useHasRunOnce";
 
 export function Heroes() {
   const dispatch = useDispatch(); // TODO: или тут нужно использовать useAppDispatch из hooks
@@ -33,7 +33,7 @@ export function Heroes() {
   const heroesFav = useSelector(selectHeroesFav);
   const currentHeroes = useSelector(selectCurrentHeroes);
 
-  const { hasRunOnce } = useHasRunOnce();
+  const hasRunOnce = useSelector(selectHasRunOnce);
 
   // Сохранить данные
   useEffect(() => {
