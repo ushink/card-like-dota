@@ -1,16 +1,16 @@
 import { HeartOutlined, HeartTwoTone } from "@ant-design/icons";
 import s from "./BtnLike.module.css";
 import { selectHeroes, setHeroes } from "../../app/dotaSlice";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { HeroStats } from "../../models/models";
 
 interface Props {
   hero: HeroStats;
 }
 export function BtnLike({ hero }: Props) {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const heroes = useSelector(selectHeroes);
+  const heroes = useAppSelector(selectHeroes);
 
   const toggleLike = (select: HeroStats) => {
     const likesHeroes = heroes.map((el) =>

@@ -32,23 +32,5 @@ export interface HeroStats {
   day_vision: number;
   night_vision: number;
   localized_name: string;
-  //   1_pick: number;
-  //   2_pick: number; TODO: спросить у Алексея
-  //   [key: string]: {
-  //     pick: number;
-  //     win: number;
-  //   };
-//   turbo_picks: number;
-//   turbo_picks_trend: number[];
-//   turbo_wins: number;
-//   turbo_wins_trend: number[];
-//   pro_pick: number;
-//   pro_win: number;
-//   pro_ban: number;
-//   pub_pick: number;
-//   pub_pick_trend: number[];
-//   pub_win: number;
-//   pub_win_trend: number[];
-
-  [key: string]: number | string | boolean | number[] | string[] | null;
+  isLike: boolean;
 }

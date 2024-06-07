@@ -1,5 +1,5 @@
 import s from "./Hero.module.css";
-import { useSelector } from "react-redux";
+import { useAppSelector } from "../../app/hooks";
 import { selectHero } from "../../app/dotaSlice";
 import { HeroStats } from "../../models/models";
 import { HeroSkills } from "../../components/HeroSkills/HeroSkills";
@@ -7,7 +7,7 @@ import { HeroDetails } from "../../components/HeroDetails/HeroDetails";
 import { BtnBack } from "../../components/BtnBack/BtnBack";
 
 export function Hero() {
-  const hero = useSelector(selectHero);
+  const hero = useAppSelector(selectHero);
 
   return (
     <main className={s.wrapper}>

@@ -1,13 +1,15 @@
 import { useNavigate } from "react-router-dom";
-import { useLazyGetHeroesStatsQuery } from "../../services/heroes";
+import { useGetHeroesStatsQuery } from "../../services/heroes";
 import s from "./Heroes.module.css";
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import {
   selectCurrentHeroes,
+  selectHasRunOnce,
   selectHeroes,
   selectHeroesFav,
   setCurrentHeroes,
+  setHasRunOnce,
   setHero,
   setHeroes,
   setHeroesFav,
@@ -17,29 +19,32 @@ import { BtnFilter } from "../../components/BtnFilter/BtnFilter";
 import { BtnLike } from "../../components/BtnLike/BtnLike";
 import { BtnDelete } from "../../components/BtnDelete/BtnDelete";
 import { BtnScroll } from "../../components/BtnScroll/BtnScroll";
+import { LoadingOutlined } from "@ant-design/icons";
 
 export function Heroes() {
-  const dispatch = useDispatch(); // TODO: или тут нужно использовать useAppDispatch из hooks
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   const [isFilter, setIsFilter] = useState(false);
 
-  const { data }: any = useLazyGetHeroesStatsQuery(); // TODO: почему требует any?
+  const { data, isLoading, isError, error } = useGetHeroesStatsQuery();
 
-  const heroes = useSelector(selectHeroes);
-  const heroesFav = useSelector(selectHeroesFav);
-  const currentHeroes = useSelector(selectCurrentHeroes);
+  const heroes = useAppSelector(selectHeroes);
+  const heroesFav = useAppSelector(selectHeroesFav);
+  const currentHeroes = useAppSelector(selectCurrentHeroes);
+  const hasRunOnce = useAppSelector(selectHasRunOnce);
 
   // Сохранить данные
   useEffect(() => {
-    if (data) {
-      const updatedHeroes = data.map((hero: any) => ({
+    if (!hasRunOnce && data) {
+      const updatedHeroes = data.map((hero: HeroStats) => ({
         ...hero,
         isLike: false,
       }));
       dispatch(setHeroes(updatedHeroes));
+      dispatch(setHasRunOnce(true));
     }
-  }, []);
+  }, [dispatch, hasRunOnce, data]); // использую зависимость hasRunOnce чтобы вызывалось один раз
 
   // Перейти на страницу с персонажем
   const handleClick = (hero: HeroStats) => {
@@ -49,14 +54,28 @@ export function Heroes() {
 
   // Сохранить лайкнутых персонажей
   useEffect(() => {
-    const favoritesHeroes = heroes.filter((item) => item.isLike === true);
+    const favoritesHeroes = heroes?.filter((item) => item.isLike === true);
     dispatch(setHeroesFav(favoritesHeroes));
-  }, [heroes]);
+  }, [dispatch, heroes]);
 
   // Отфильтровать
   useEffect(() => {
     dispatch(setCurrentHeroes(isFilter ? heroesFav : heroes));
-  }, [isFilter, heroes, heroesFav]);
+  }, [dispatch, isFilter, heroes, heroesFav]);
+
+  // Отображаем индикатор загрузки, пока данные не будут получены
+  if (isLoading) {
+    return (
+      <div className={s.wrapper}>
+        <LoadingOutlined /> Загрузка...
+      </div>
+    );
+  }
+
+  // Обрабатываем возможные ошибки
+  if (isError) {
+    return <div className={s.wrapper}>Ошибка: {JSON.stringify(error)}</div>;
+  }
 
   return (
     <main className={s.wrapper}>

@@ -3,7 +3,6 @@ import { HeroStats } from "../models/models";
 
 export const dotaApi = createApi({
   reducerPath: "dotaApi",
-
   baseQuery: fetchBaseQuery({ baseUrl: "https://api.opendota.com/api/" }),
 
   endpoints: (builder) => ({
@@ -13,4 +12,4 @@ export const dotaApi = createApi({
   }),
 });
 
-export const { useLazyGetHeroesStatsQuery } = dotaApi;
+export const { useGetHeroesStatsQuery } = dotaApi;
