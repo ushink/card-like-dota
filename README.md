@@ -2,7 +2,7 @@
 
 Создать SPA со списком карточек, на каждой из которых выводится картинка и любая информация, которая пришла с эндпоинта. 
 
-Для задачи выбрано публичное api: https://api.opendota.com/api/heroes
+Для задачи выбрано публичное api: https://docs.opendota.com/#tag/hero-stats/operation/get_hero_stats
 
 ## Функциональность
 
