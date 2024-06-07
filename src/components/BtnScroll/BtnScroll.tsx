@@ -3,7 +3,7 @@ import s from "./BtnScroll.module.css";
 import { useLayoutEffect, useState } from "react";
 
 export function BtnScroll() {
-  const [isShowScroll, setIsShowScroll] = useState(false);
+  const [isShowScroll, setIsShowScroll] = useState<Boolean>(false);
 
   const handleClick = () => {
     window.scrollTo(0, 20);

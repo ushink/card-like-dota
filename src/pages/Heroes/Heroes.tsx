@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useGetHeroesStatsQuery } from "../../services/heroes";
 import s from "./Heroes.module.css";
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import {
   selectCurrentHeroes,
   selectHasRunOnce,
@@ -22,18 +22,17 @@ import { BtnScroll } from "../../components/BtnScroll/BtnScroll";
 import { LoadingOutlined } from "@ant-design/icons";
 
 export function Heroes() {
-  const dispatch = useDispatch(); // TODO: или тут нужно использовать useAppDispatch из hooks да нужно
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   const [isFilter, setIsFilter] = useState(false);
 
   const { data, isLoading, isError, error } = useGetHeroesStatsQuery();
 
-  const heroes = useSelector(selectHeroes); // TODO: или тут нужно использовать useAppDispatch из hooks да нужно
-  const heroesFav = useSelector(selectHeroesFav);
-  const currentHeroes = useSelector(selectCurrentHeroes);
-
-  const hasRunOnce = useSelector(selectHasRunOnce);
+  const heroes = useAppSelector(selectHeroes);
+  const heroesFav = useAppSelector(selectHeroesFav);
+  const currentHeroes = useAppSelector(selectCurrentHeroes);
+  const hasRunOnce = useAppSelector(selectHasRunOnce);
 
   // Сохранить данные
   useEffect(() => {

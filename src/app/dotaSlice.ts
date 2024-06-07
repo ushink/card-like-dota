@@ -32,19 +32,19 @@ const dotaSlice = createSlice({
       state.heroes = action.payload;
     },
 
-    setHeroesFav: (state, action) => { // TODO: доделать 
+    setHeroesFav: (state, action: PayloadAction<HeroStats[]>) => {
       state.heroesFav = action.payload;
     },
 
-    setHero(state, action) {
+    setHero(state, action: PayloadAction<HeroStats>) {
       state.hero = action.payload;
     },
 
-    setCurrentHeroes(state, action) {
+    setCurrentHeroes(state, action: PayloadAction<HeroStats[]>) {
       state.currentHeroes = action.payload;
     },
 
-    setHasRunOnce(state, action) {
+    setHasRunOnce(state, action: PayloadAction<boolean>) {
       state.hasRunOnce = action.payload;
     },
   },
