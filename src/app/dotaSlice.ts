@@ -1,28 +1,38 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { HeroStats } from "../models/models";
+
+interface InitialState {
+  heroes: HeroStats[];
+  heroesFav: HeroStats[];
+  currentHeroes: HeroStats[];
+  hero: HeroStats | null;
+  hasRunOnce: boolean;
+}
+
+const initialState: InitialState = {
+  heroes: [],
+  heroesFav: [],
+  currentHeroes: [],
+  hero: null,
+  hasRunOnce: false,
+};
 
 const dotaSlice = createSlice({
   name: "dota",
-  initialState: {
-    heroes: [],
-    heroesFav: [],
-    currentHeroes: [],
-    hero: null,
-    hasRunOnce: false,
-  },
+  initialState,
   selectors: {
-    selectHeroes: (state): HeroStats[] => state.heroes, // TODO: правильная ли тут типизиция
+    selectHeroes: (state): HeroStats[] => state.heroes,
     selectHeroesFav: (state): HeroStats[] => state.heroesFav,
     selectHero: (state): HeroStats | null => state.hero,
     selectCurrentHeroes: (state): HeroStats[] => state.currentHeroes,
     selectHasRunOnce: (state): boolean => state.hasRunOnce,
   },
   reducers: {
-    setHeroes: (state, action) => {
+    setHeroes: (state, action: PayloadAction<HeroStats[]>) => {
       state.heroes = action.payload;
     },
 
-    setHeroesFav: (state, action) => {
+    setHeroesFav: (state, action) => { // TODO: доделать 
       state.heroesFav = action.payload;
     },
 

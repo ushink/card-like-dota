@@ -25,10 +25,11 @@ const rootReducer = combineReducers({
   [dotaApi.reducerPath]: dotaApi.reducer,
 });
 
-const persistedReducer = persistReducer(persistConfig, rootReducer); //TODO: не работает сохранение в store
+const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export const store = configureStore({
   reducer: persistedReducer,
+
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {

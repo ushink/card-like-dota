@@ -22,14 +22,14 @@ import { BtnScroll } from "../../components/BtnScroll/BtnScroll";
 import { LoadingOutlined } from "@ant-design/icons";
 
 export function Heroes() {
-  const dispatch = useDispatch(); // TODO: или тут нужно использовать useAppDispatch из hooks
+  const dispatch = useDispatch(); // TODO: или тут нужно использовать useAppDispatch из hooks да нужно
   const navigate = useNavigate();
 
   const [isFilter, setIsFilter] = useState(false);
 
   const { data, isLoading, isError, error } = useGetHeroesStatsQuery();
 
-  const heroes = useSelector(selectHeroes);
+  const heroes = useSelector(selectHeroes); // TODO: или тут нужно использовать useAppDispatch из hooks да нужно
   const heroesFav = useSelector(selectHeroesFav);
   const currentHeroes = useSelector(selectCurrentHeroes);
 
@@ -45,7 +45,7 @@ export function Heroes() {
       dispatch(setHeroes(updatedHeroes));
       dispatch(setHasRunOnce(true));
     }
-  }, [hasRunOnce, data]); // использую зависимость hasRunOnce чтобы вызывалось один раз
+  }, [dispatch, hasRunOnce, data]); // использую зависимость hasRunOnce чтобы вызывалось один раз
 
   // Перейти на страницу с персонажем
   const handleClick = (hero: HeroStats) => {
@@ -57,12 +57,12 @@ export function Heroes() {
   useEffect(() => {
     const favoritesHeroes = heroes?.filter((item) => item.isLike === true);
     dispatch(setHeroesFav(favoritesHeroes));
-  }, [heroes]);
+  }, [dispatch, heroes]);
 
   // Отфильтровать
   useEffect(() => {
     dispatch(setCurrentHeroes(isFilter ? heroesFav : heroes));
-  }, [isFilter, heroes, heroesFav]);
+  }, [dispatch, isFilter, heroes, heroesFav]);
 
   // Отображаем индикатор загрузки, пока данные не будут получены
   if (isLoading) {
