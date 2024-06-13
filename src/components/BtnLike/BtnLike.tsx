@@ -13,10 +13,12 @@ export function BtnLike({ hero }: Props) {
   const heroes = useAppSelector(selectHeroes);
 
   const toggleLike = (select: HeroStats) => {
-    const likesHeroes = heroes.map((el) =>
-      el.id === select.id ? { ...el, isLike: !el.isLike } : el
-    );
-    dispatch(setHeroes(likesHeroes));
+    if (heroes) {
+      const likesHeroes = heroes.map((el) =>
+        el.id === select.id ? { ...el, isLike: !el.isLike } : el
+      );
+      dispatch(setHeroes(likesHeroes));
+    }
   };
 
   return (

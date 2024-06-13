@@ -2,9 +2,9 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { HeroStats } from "../models/models";
 
 interface InitialState {
-  heroes: HeroStats[];
-  heroesFav: HeroStats[];
-  currentHeroes: HeroStats[];
+  heroes: HeroStats[] | null;
+  heroesFav: HeroStats[] | null;
+  currentHeroes: HeroStats[] | null;
   hero: HeroStats | null;
   hasRunOnce: boolean;
 }
@@ -21,10 +21,10 @@ const dotaSlice = createSlice({
   name: "dota",
   initialState,
   selectors: {
-    selectHeroes: (state): HeroStats[] => state.heroes,
-    selectHeroesFav: (state): HeroStats[] => state.heroesFav,
+    selectHeroes: (state): HeroStats[] | null => state.heroes,
+    selectHeroesFav: (state): HeroStats[] | null => state.heroesFav,
     selectHero: (state): HeroStats | null => state.hero,
-    selectCurrentHeroes: (state): HeroStats[] => state.currentHeroes,
+    selectCurrentHeroes: (state): HeroStats[] | null => state.currentHeroes,
     selectHasRunOnce: (state): boolean => state.hasRunOnce,
   },
   reducers: {

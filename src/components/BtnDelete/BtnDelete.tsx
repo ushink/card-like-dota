@@ -12,8 +12,10 @@ export function BtnDelete({ id }: Props) {
   const heroes = useAppSelector(selectHeroes);
 
   const clickDelete = (id: number) => {
-    const updatedHeroes = heroes.filter((el) => el.id !== id);
-    dispatch(setHeroes(updatedHeroes));
+    if (heroes) {
+      const updatedHeroes = heroes.filter((el) => el.id !== id);
+      dispatch(setHeroes(updatedHeroes));
+    }
   };
 
   return (

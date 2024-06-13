@@ -31,7 +31,7 @@ export function Heroes() {
 
   const heroes = useAppSelector(selectHeroes);
   const heroesFav = useAppSelector(selectHeroesFav);
-  const currentHeroes = useAppSelector(selectCurrentHeroes);
+  const currentHeroes = useAppSelector(selectCurrentHeroes) ?? [];
   const hasRunOnce = useAppSelector(selectHasRunOnce);
 
   // Сохранить данные
@@ -54,13 +54,17 @@ export function Heroes() {
 
   // Сохранить лайкнутых персонажей
   useEffect(() => {
-    const favoritesHeroes = heroes?.filter((item) => item.isLike === true);
-    dispatch(setHeroesFav(favoritesHeroes));
+    if (heroes) {
+      const favoritesHeroes = heroes.filter((item) => item.isLike === true);
+      dispatch(setHeroesFav(favoritesHeroes));
+    }
   }, [dispatch, heroes]);
 
   // Отфильтровать
   useEffect(() => {
-    dispatch(setCurrentHeroes(isFilter ? heroesFav : heroes));
+    if (heroesFav && heroes) {
+      dispatch(setCurrentHeroes(isFilter ? heroesFav : heroes));
+    }
   }, [dispatch, isFilter, heroes, heroesFav]);
 
   // Отображаем индикатор загрузки, пока данные не будут получены
@@ -82,7 +86,7 @@ export function Heroes() {
       <BtnFilter isFilter={isFilter} setIsFilter={setIsFilter} />
       <BtnScroll />
       <section className={s.cards}>
-        {currentHeroes?.map((el) => (
+        {currentHeroes.map((el) => (
           <div className={s.card} key={el.id} onClick={() => handleClick(el)}>
             <img
               className={s.background}
